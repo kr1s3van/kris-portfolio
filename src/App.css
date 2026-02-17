@@ -1,42 +1,90 @@
-#root {
-  max-width: 1280px;
+/* 1. Importation de la police Arcade */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* 2. Style Global et Centrage */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  font-family: 'Press Start 2P', cursive;
+  overflow: hidden; /* Empêche le scroll inutile */
+}
+
+/* Container qui centre tout au milieu de l'écran */
+.app-main-container {
+  background-color: #000;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* Centre horizontalement */
+  justify-content: center; /* Centre verticalement */
+}
+
+/* 3. Header et Titre */
+.game-header h1 {
+  background: linear-gradient(to bottom, #fff 0%, #2196f3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 28px;
+  margin-bottom: 40px;
+  text-align: center;
+  filter: drop-shadow(0 0 10px rgba(33, 150, 243, 0.7));
+}
+
+/* 4. Le Labyrinthe */
+.maze-grid {
+  display: inline-grid;
+  background: #000;
+  padding: 10px; /* Petit espace entre la bordure bleue et le labyrinthe */
+  border: 2px solid #2196f3;
+  box-shadow: 0 0 20px rgba(33, 150, 243, 0.4);
   margin: 0 auto;
-  padding: 2rem;
+}
+
+.cell {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  box-sizing: border-box; /* Garde les bordures lisses à l'intérieur */
+  position: relative;
+}
+
+.wall-block {
+  background-color: #000;
+  box-sizing: border-box;
+}
+
+/* 5. Éléments du jeu (Points et Projets) */
+.dot {
+  width: 4px;
+  height: 4px;
+  background-color: #ffb8ae;
+  border-radius: 50%;
+}
+
+.station {
+  color: #facc15; /* Jaune pour les lettres projets */
+  font-size: 14px;
+  text-shadow: 0 0 8px #facc15;
+  animation: pulse 1.5s infinite;
+}
+
+/* 6. Footer */
+.game-footer {
+  margin-top: 40px;
+  color: #444;
+  font-size: 10px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+/* 7. Animations */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
 }
