@@ -28,6 +28,7 @@ const Maze = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [unlockedSections, setUnlockedSections] = useState(new Set()); 
   const [isMissionOpen, setIsMissionOpen] = useState(false);
+  const [eatenDots, setEatenDots] = useState(new Set());
 
   useEffect(() => {
     if (selectedProject) return;
@@ -68,6 +69,13 @@ const Maze = () => {
     if (MAZE_GRID[nY] && MAZE_GRID[nY][nX] !== 1) {
       setPlayerPos({ x: nX, y: nY });
       setDirection(nDir);
+
+      // --- LOGIQUE POUR MANGER LE POINT ---
+      const dotKey = `${nX}-${nY}`;
+      if (!eatenDots.has(dotKey)) {
+        setEatenDots(prev => new Set(prev).add(dotKey));
+      }
+
       const hit = Object.keys(ghosts).find(id => ghosts[id].x === nX && ghosts[id].y === nY);
       if (hit) {
         setUnlockedSections(prev => new Set(prev).add(hit)); 
@@ -86,7 +94,7 @@ const Maze = () => {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [playerPos, ghosts, selectedProject]);
+  }, [playerPos, ghosts, selectedProject, eatenDots]); // Ajout de eatenDots ici
 
   const isWall = (x, y) => {
     if (y < 0 || y >= MAZE_GRID.length || x < 0 || x >= MAZE_GRID[0].length) return false;
@@ -98,12 +106,11 @@ const Maze = () => {
       <button className="mission-toggle-btn" onClick={() => setIsMissionOpen(true)}>GOALS</button>
       
       <div className="game-wrapper" style={{ position: 'relative' }}>
-        {/* LA GRILLE (FORCÉE EN GRID) */}
         <div className="maze-grid" style={{
-          display: 'grid', // CRUCIAL
+          display: 'grid', 
           gridTemplateColumns: `repeat(${MAZE_GRID[0].length}, ${CELL_SIZE}px)`,
           gridTemplateRows: `repeat(${MAZE_GRID.length}, ${CELL_SIZE}px)`,
-          width: `${MAZE_GRID[0].length * CELL_SIZE}px`, // Largeur forcée
+          width: `${MAZE_GRID[0].length * CELL_SIZE}px`,
           gap: '0', 
           position: 'relative'
         }}>
@@ -116,15 +123,17 @@ const Maze = () => {
                   borderRight: isWall(x + 1, y) ? 'none' : '2px solid #2196f3',
               } : {};
 
+              // --- VÉRIFIER SI LE POINT A ÉTÉ MANGÉ ---
+              const isEaten = eatenDots.has(`${x}-${y}`);
+
               return (
                 <div key={`${x}-${y}`} className={`cell ${cell === 1 ? 'wall-block' : ''}`} style={wallStyle}>
-                  {(cell === 0 || cell === 'P' || typeof cell === 'string') && <div className="dot" />}
+                  {(cell === 0 || cell === 'P' || typeof cell === 'string') && !isEaten && <div className="dot" />}
                 </div>
               );
             })
           )}
 
-          {/* LE JOUEUR (COUCHÉ AU DESSUS) */}
           <div className="entity-container" style={{
             transform: `translate(${playerPos.x * CELL_SIZE}px, ${playerPos.y * CELL_SIZE}px)`,
             transition: 'transform 0.15s linear'
@@ -134,13 +143,22 @@ const Maze = () => {
             </div>
           </div>
 
-          {/* LES FANTÔMES (COUCHÉS AU DESSUS) */}
           {Object.entries(ghosts).map(([id, pos]) => (
             <div key={id} className="entity-container" style={{
               transform: `translate(${pos.x * CELL_SIZE}px, ${pos.y * CELL_SIZE}px)`,
               transition: 'transform 0.6s ease-in-out'
             }}>
-              <div className="ghost" style={{ backgroundColor: PORTFOLIO_DATA[id].color, boxShadow: `0 0 15px ${PORTFOLIO_DATA[id].color}` }}>
+              <div className="ghost" style={{ 
+                backgroundColor: PORTFOLIO_DATA[id].color, 
+                boxShadow: id === 'Me' ? `0 0 25px #ff0000` : `0 0 15px ${PORTFOLIO_DATA[id].color}` 
+              }}>
+                {id === 'Me' && (
+                  <div className="ghost-glasses">
+                    <div className="lens"></div>
+                    <div className="bridge"></div>
+                    <div className="lens"></div>
+                  </div>
+                )}
                 <div className="ghost-eyes"><div className="eye"></div><div className="eye"></div></div>
                 <div className="ghost-skirt" style={{ backgroundColor: PORTFOLIO_DATA[id].color }}></div>
               </div>
@@ -167,6 +185,12 @@ const Maze = () => {
             </li>
           ))}
         </ul>
+        
+        {/* DOT SCORE POUR LE FUN */}
+        <div style={{ marginTop: '20px', color: '#facc15', fontSize: '10px', textAlign: 'center' }}>
+          DOTS: {eatenDots.size}
+        </div>
+
         <button className="mobile-close-btn" onClick={() => setIsMissionOpen(false)}>BACK TO GAME</button>
       </div>
 

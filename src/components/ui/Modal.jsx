@@ -10,7 +10,7 @@ const Modal = ({ projectId, onClose }) => {
     color: "#000", 
     fontWeight: "bold",
     padding: "10px",
-    position: "sticky",
+    // position: "sticky",
     top: 0,
     zIndex: 10
   };
@@ -59,15 +59,15 @@ const Modal = ({ projectId, onClose }) => {
                 <div key={index} style={{ marginBottom: '40px', borderBottom: `1px solid ${section.color}33`, paddingBottom: '20px' }}>
                   <h4 style={{ color: section.color, fontSize: '12px', marginBottom: '10px' }}>{">"} {exp.name}</h4>
                   {exp.images && (
-                    <div style={{ display: 'grid', gridTemplateColumns: exp.images.length > 1 ? '1fr 1fr' : '1fr', gap: '10px', margin: '15px 0' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: exp.images.length > 1 ? '1fr 1fr' : '1fr', gap: '10px', marginTop: '15px', marginBottom: '15px' }}>
                       {exp.images.map((img, idx) => (
                         <div key={idx} className="image-frame" style={{ margin: 0 }}>
-                          <img src={img} alt="exp" style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
+                          <img src={img} alt="exp" style={{ width: '100%', height: '120px', objectFit: 'cover', display: 'block' }} />
                         </div>
                       ))}
                     </div>
                   )}
-                  <p style={{ color: '#fff', fontSize: '9px', lineHeight: '1.6' }}>{exp.desc}</p>
+                  <p style={{ color: '#fff', fontSize: '9px', lineHeight: '1.6', marginTop: '0px' }}>{exp.desc}</p>
                 </div>
               ))}
             </div>
@@ -82,16 +82,16 @@ const Modal = ({ projectId, onClose }) => {
                   
                   {/* AFFICHAGE DES IMAGES DU PROJET */}
                   {p.images && (
-                    <div style={{ display: 'grid', gridTemplateColumns: p.images.length > 1 ? '1fr 1fr' : '1fr', gap: '10px', margin: '15px 0' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: p.images.length > 1 ? '1fr 1fr' : '1fr', gap: '10px', marginTop: '15px', marginBottom: '15px' }}>
                       {p.images.map((img, idx) => (
                         <div key={idx} className="image-frame" style={{ margin: 0 }}>
-                          <img src={img} alt="project" style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
+                          <img src={img} alt="project" style={{ width: '100%', height: '120px', objectFit: 'cover', display: 'block' }} />
                         </div>
                       ))}
                     </div>
                   )}
 
-                  <p style={{ color: '#fff', fontSize: '9px', lineHeight: '1.6', marginBottom: '15px', textAlign: 'justify' }}>{p.desc}</p>
+                  <p style={{ color: '#fff', fontSize: '9px', lineHeight: '1.6', marginBottom: '15px', textAlign: 'justify', marginTop: '0px' }}>{p.desc}</p>
 
                   {/* LIENS SPÉCIFIQUES AU PROJET */}
                   {p.links && (
