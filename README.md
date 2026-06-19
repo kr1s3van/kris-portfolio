@@ -33,11 +33,11 @@ kris-portfolio/
 
 ---
 
-## 🧠 Technical Challenges & Engineering Solutions
+## Technical Challenges & Engineering Solutions
 
 Building a functional game engine within a web browser using React required solving complex DOM reconciliation and graphical rendering issues.
 
-1. The Layering Solution (Solving the "Teleportation" Bug) 🚀
+1. The Layering Solution (Solving the "Teleportation" Bug) 
 
 This was the most complex architectural challenge of the project.
 
@@ -51,13 +51,13 @@ The Solution: I implemented a Layered Architecture:
 
 The Engineering Trick: I developed a coordinate-to-pixel conversion algorithm that translates matrix indices (x,y) into actual pixel values (x×25px,y×25px) in real-time. This allowed the use of the CSS transition: transform property, enabling buttery-smooth 60fps movement.
 
-2. Resolving "Transform" Property Conflicts (Wrapping Pattern) ⚔️
+2. Resolving "Transform" Property Conflicts (Wrapping Pattern) 
 
 The Problem: The ghosts required two simultaneous movements: a constant vertical "floating" animation (CSS-based) and a horizontal/vertical patrol movement (JS-based). In CSS, applying a new transform property completely overwrites the previous one. Therefore, the patrol logic was constantly cancelling out the floating animation.
 
 The Solution: I applied the Wrapping Pattern. Each ghost is encapsulated in a parent container. The parent handles the spatial movement across the map (translate(x, y) via React state), while the child element handles the decorative floating effect (translateY via CSS keyframes). Separating these concerns allowed both transforms to stack seamlessly.
 
-3. Dynamic Collision Detection & Wandering AI 👻
+3. Dynamic Collision Detection & Wandering AI 
 
 Wandering AI: I designed a constrained "Wandering AI" for the ghosts. Every second, the algorithm:
 - Selects a random direction (Up, Down, Left, Right).
