@@ -2,7 +2,7 @@ export const PORTFOLIO_DATA = {
   Me: {
     title: "WHO IS KRIS?",
     color: "#ff0000", 
-    image: "public/assets/Moi3.jpeg", 
+    image: "/assets/Moi3.jpeg", 
     description: [
       "My journey as a developer began with a Nintendo controller in hand. As a lifelong gamer; growing up on Zelda, Smash Bros, and Splatoon (#NintendoForLife); I’ve always been captivated by how digital worlds are built. That curiosity evolved into a passion for software engineering. What I love most about coding is the power to bring my own ideas to life. I thrive on the challenge of materializing a concept and solving the complex puzzles that come with it (even when the bugs get a little frustrating!).",
       "Currently, I am a Software Engineering student @ uOttawa and an Admission Scholarship recipient. I specialize in building robust applications where high-level code meets mathematical logic. By combining engineering rigor with a musician’s mindset, I am driven to develop innovative solutions in AI and Digital Signal Processing (DSP) that are both performant and accessible.",
