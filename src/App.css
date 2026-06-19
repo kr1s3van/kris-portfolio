@@ -204,7 +204,9 @@ body {
   border-radius: 50%;
   box-shadow: 0 0 12px #facc15;
   z-index: 10;
-  transition: all 0.1s ease; 
+  /* Animation pour qu'il ne soit pas figé */
+  animation: breathe 0.8s infinite alternate;
+  transition: all 0.1s ease; /* Fluidité du mouvement */
   transform-origin: center;
   backface-visibility: hidden; /* Fix pour la netteté du sprite */
 }
@@ -213,7 +215,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #000; 
+  background-color: #000; /* Doit être la même couleur que le fond des cases */
   clip-path: polygon(100% 50%, 50% 50%, 100% 50%);
   animation: chomp 0.3s infinite alternate;
 }
@@ -386,13 +388,31 @@ body {
   background-color: #000;
   border: 4px solid #facc15; 
   padding: 30px;
-  max-width: 500px;
-  max-height: 200vh;
+  max-width: 650px; /* AUGMENTÉ pour la Bio */
+  max-height: 90vh;
   overflow-y: auto;
   width: 90%;
   box-shadow: 0 0 30px #facc15;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
+}
+
+/* --- STYLE SPÉCIFIQUE BIO --- */
+.bio-frame {
+  max-width: 100%;
+  border: 4px solid #ff0000;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  margin-bottom: 25px;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.bio-photo {
+  width: 100%;
+  height: auto;
+  max-height: 450px;
+  object-fit: contain;
+  display: block;
 }
 
 .arcade-header {
@@ -449,4 +469,80 @@ body {
   object-fit: cover; 
   display: block;
   image-rendering: pixelated; 
+}
+
+/* --- 12. OPTIMISATION MOBILE (IPHONE & CO) --- */
+
+@media (max-width: 1250px) {
+  .game-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mission-toggle-btn {
+    display: block;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 2000;
+  }
+}
+
+/* RÉGLAGES SPÉCIFIQUES POUR ÉCRANS DE TÉLÉPHONE */
+@media (max-width: 600px) {
+  .game-header h1 {
+    font-size: 18px; 
+    margin-bottom: 10px;
+  }
+
+  /* réduction de la taille du labyrinthe pour qu'il rentre dans l'écran */
+  .maze-grid {
+    transform: scale(0.65); /* Zoom arrière de 35% */
+    transform-origin: top center;
+    margin-bottom: -150px; /* On compense l'espace vide créé par le scale */
+  }
+
+  /* On ajuste les contrôles pour qu'ils ne soient pas cachés par le labyrinthe */
+  .mobile-controls {
+    margin-top: 20px;
+    position: relative;
+    z-index: 100;
+  }
+
+  .ctrl-btn {
+    width: 50px; 
+    height: 50px;
+  }
+
+  /* MODAL MOBILE : Plein écran */
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+    border-width: 3px;
+  }
+
+  .arcade-header {
+    font-size: 12px;
+  }
+
+  .project-photo, .bio-photo {
+    max-height: 200px; 
+  }
+  
+  .project-desc-list li, .project-body p {
+    font-size: 8px; 
+  }
+}
+
+/* Empêcher le rebond chiant élastique sur iOS */
+html, body {
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.app-main-container {
+  touch-action: none; 
 }

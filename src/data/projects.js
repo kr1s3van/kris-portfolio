@@ -91,8 +91,8 @@ export const PORTFOLIO_DATA = {
   RES: {
     title: "MY RESUME",
     color: "#2ed573", 
-    pdfPath: "/assets/CV_Kris-Evan.pdf",
-    link: "/assets/CV_Kris-Evan.pdf",
+    pdfPath: "/assets/Kris-Evan_CV.pdf",
+    link: "/assets/Kris-Evan_CV.pdf",
     description: ["Review my full technical background below."]
   },
   CON: {
@@ -106,40 +106,3 @@ export const PORTFOLIO_DATA = {
     description: ["Feel free to reach out for collaborations, questions, or just to say hi! :3"],
   }
 };
-
-/*note a moi meme(IDÉES FUTURES):
-Ajouter le curseur intuitif
-
-Documentation : Système de Patrouille des Fantômes
-1. Objectif
-Rendre le labyrinthe dynamique en permettant aux fantômes (représentant les sections du CV) de patrouiller de manière autonome dans le labyrinthe, tout en restant interactifs.
-
-2. Défis Techniques & Problèmes rencontrés
-A. Le conflit des "Transforms" (CSS War)
-Problème : Initialement, les fantômes avaient une animation CSS de "flottement" (translateY). Lorsque nous avons essayé d'ajouter le mouvement de patrouille via React (translate(x, y)), l'animation CSS écrasait le mouvement JS. En CSS, on ne peut pas appliquer deux propriétés transform indépendantes sur un même élément sans qu'elles ne se battent.
-Solution : Utilisation du "Wrapping Pattern". Nous avons créé une div parente (le container d'entité) qui gère le déplacement sur la grille, et une div enfant (le sprite) qui gère l'animation de flottement.
-B. L'effet de "Téléportation" (Mouvement saccadé)
-Problème : En rendant les fantômes à l'intérieur des cellules de la grille (MAZE_GRID.map), le fantôme était supprimé du DOM à la case A et recréé à la case B. Cela rendait toute transition CSS impossible.
-Solution : Implémentation d'une Architecture par Couches (Layering).
-Une couche de fond pour la grille (statique).
-Une couche supérieure pour les entités (Joueur et Fantômes) positionnées en absolute.
-Conversion des coordonnées logiques(x,y) en pixels (x×25px,y×25px) pour permettre l'utilisation de transition: transform.
-C. Le déphasage Collision/Visuel
-Problème : Au début, la collision était détectée sur la MAZE_GRID fixe. Si un fantôme bougeait visuellement, sa "hitbox" restait sur sa case de départ.
-Solution : Passage à une Collision Dynamique. Le moteur de jeu compare maintenant en temps réel la position (x,y)
- du joueur avec l'état ghosts (qui stocke les positions actuelles des fantômes) au lieu de lire le tableau de la carte.
-
- 3. Algorithme de Patrouille (Wandering AI)
-L'IA des fantômes suit une logique de "marche aléatoire contrainte" :
-Intervalle : Chaque seconde, un calcul est lancé pour chaque fantôme.
-Choix de direction : Une direction aléatoire (Haut, Bas, Gauche, Droite) est choisie.
-Validation :
-Le mouvement est autorisé uniquement si la case cible est un chemin (0).
-Contrainte de zone : Le fantôme ne peut pas s'éloigner de plus de 2 cases de sa "maison" (coordonnées d'origine).
-Retour au bercail : Si le fantôme est bloqué ou hors zone, l'algorithme calcule un vecteur vers sa position d'origine pour le ramener.
-
-4. Stack technique utilisée
-React hooks (useState, useEffect) pour la boucle de jeu.
-CSS Hardware Acceleration (transform: translate) pour des mouvements fluides à 60fps.
-JavaScript Timers pour la gestion de l'IA asynchrone.
-*/

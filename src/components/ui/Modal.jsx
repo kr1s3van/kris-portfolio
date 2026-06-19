@@ -34,10 +34,14 @@ const Modal = ({ projectId, onClose }) => {
             </div>
           )}
 
-          {/* LOGIQUE DE MA FOTO DANS BIO */}
+          {/* LOGIQUE DE MA FOTO DANS BIO - MODIFIÉ POUR LE FORMAT LARGE */}
           {section.image && !section.pdfPath && (
-            <div className="image-frame">
-              <img src={section.image} alt={section.title} className="project-photo" />
+            <div className={projectId === 'Me' ? "bio-frame" : "image-frame"}>
+              <img 
+                src={section.image} 
+                alt={section.title} 
+                className={projectId === 'Me' ? "bio-photo" : "project-photo"} 
+              />
             </div>
           )}
 
