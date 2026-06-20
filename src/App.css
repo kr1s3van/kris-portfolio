@@ -572,14 +572,17 @@ body {
   }
 }
 
-/* Empêcher le rebond élastique sur iOS */
+/* Empêcher le rebond élastique sur iOS et Allow touch interactions (scroll) in classic view*/
 html, body {
   width: 100%;
   min-height: 100%;
 }
 
-.app-main-container {
+.app-main-container:not(.classic-bg) {
   touch-action: none;
+}
+.app-main-container.classic-bg {
+  touch-action: auto;
 }
 
 .game-body,
